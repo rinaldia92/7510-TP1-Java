@@ -11,7 +11,15 @@ public class Rules {
     private Map<String,List<String>> rulesparameters;
     private Map<String,String> rules;
 
-    public Rules(){
+    private static Rules instance = null;
+
+    public static Rules GetInstance(){
+        if (instance == null)
+            instance = new Rules();
+        return instance;
+    }
+
+    private Rules(){
         this.rulesparameters = new HashMap<>();
         this.rules = new HashMap<>();
     }

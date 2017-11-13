@@ -9,7 +9,15 @@ public class Facts {
 
     private Map<String,List<List<String>>> facts;
 
-    public Facts(){
+    private static Facts instance = null;
+
+    public static Facts GetInstance(){
+        if (instance == null)
+            instance = new Facts();
+        return instance;
+    }
+
+    private Facts(){
         this.facts = new HashMap<>();
     }
 

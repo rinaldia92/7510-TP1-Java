@@ -16,7 +16,7 @@ public class App {
 
         Scanner sin = new Scanner (System.in);
 
-		kb = new KnowledgeBase();
+		kb = new KnowledgeBase("./src/main/resources/rules.db");
 
         System.out.println("Ingrese query a chequear.");
         System.out.println("Para salir ingrese Quit()");

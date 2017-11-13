@@ -11,29 +11,29 @@ public class KnowledgeBase {
 
     private boolean dbstate;
 
-	public KnowledgeBase(){
+	public KnowledgeBase(String file){
         List<String> lines;
         String type;
 	    this.dbstate = true;
-	    this.db = new DB("./src/main/resources/rules.db");
+	    this.db = new DB(file);
         this.checkline = new CheckLine();
-        this.facts = new Facts();
-        this.rules = new Rules();
+        this.facts = Facts.GetInstance();
+        this.rules = Rules.GetInstance();
 
         lines = db.GetLines();
 
         for (String line : lines){
             type = this.checkline.CheckType(line);
 
+            if (type == null){
+                this.dbstate = false;
+                break;
+            }
+
             if(type.equals("Fact")){
                 facts.AddFact(new Fact(line));
             } else {
-                if(type.equals("Rule")){
-                    rules.AddRule(new Rule(line));
-                } else {
-                    this.dbstate = false;
-                    break;
-                }
+                rules.AddRule(new Rule(line));
             }
         }
     }

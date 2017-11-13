@@ -21,7 +21,7 @@ public class FactsTest {
     @Test
     public void test() {
 
-        this.facts = new Facts();
+        this.facts = Facts.GetInstance();
 
         this.facts.AddFact(new Fact("varon  ( juan ) ."));
         this.facts.AddFact(new Fact("varon(pepe)."));

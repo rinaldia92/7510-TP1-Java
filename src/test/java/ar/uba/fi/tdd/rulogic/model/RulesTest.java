@@ -21,32 +21,19 @@ public class RulesTest {
     @Test
     public void test() {
 
-        Facts diccfacts = new Facts();
-        this.rules = new Rules();
+        Facts diccfacts = Facts.GetInstance();
+        this.rules = Rules.GetInstance();
 
         boolean exception;
 
-        diccfacts.AddFact(new Fact("varon  ( juan ) ."));
-        diccfacts.AddFact(new Fact("varon(pepe)."));
-        diccfacts.AddFact(new Fact("varon(hector)."));
-        diccfacts.AddFact(new Fact("varon(roberto)."));
-        diccfacts.AddFact(new Fact("varon(alejandro)."));
-        diccfacts.AddFact(new Fact("mujer(maria) ."));
-        diccfacts.AddFact(new Fact("mujer(cecilia)."));
-        diccfacts.AddFact(new Fact("padre(juan, pepe)."));
-        diccfacts.AddFact(new Fact("padre(juan, pepa)."));
+        this.rules.AddRule(new Rule("abuelo(X, Y, Z) :- varon(X), padre(X, Y), padre(Y,Z)."));
 
-        this.rules.AddRule(new Rule("hijo(X, Y) :- varon(X), padre(Y, X)."));
-
-        Assert.assertTrue(this.rules.ExistQuery(new Fact("hijo(pepe,juan)"),diccfacts));
-        Assert.assertFalse(this.rules.ExistQuery(new Fact("hijo(pepe,hector)"),diccfacts));
-        Assert.assertFalse(this.rules.ExistQuery(new Fact("hijo(pepe,hector,roberto)"),diccfacts));
-        Assert.assertFalse(this.rules.ExistQuery(new Fact("hija(pepe,hector)"),diccfacts));
+        Assert.assertFalse(this.rules.ExistQuery(new Fact("abuelo(pepe,hector)"),diccfacts));
 
         exception = false;
 
         try{
-            this.rules.AddRule(new Rule("hijo(X, Y) :- varon(X), padre(Y, X)."));
+            this.rules.AddRule(new Rule("abuelo(X, Y, Z) :- varon(X), padre(X, Y), padre(Y,Z)."));
         } catch (RuleException ex){
             exception = true;
         }
